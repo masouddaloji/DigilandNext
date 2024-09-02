@@ -1,0 +1,35 @@
+
+.suggestedproduct__title {
+  width: 100%;
+  height: 2.4rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: var(--iran-bold);
+  padding: 1.5rem 1rem;
+}
+.suggestedproduct__link {
+    display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--black-50);
+  font-size: 1.3rem;
+  text-overflow: ellipsis;
+}
+.suggestedproduct__imgLink{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.suggestedproduct__priceBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggestedproduct__icon-box {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: #c7c7c7;
+}
+
+

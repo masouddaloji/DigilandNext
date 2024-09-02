@@ -1,0 +1,34 @@
+.suggestedproduct__time-Percent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .suggestedproduct__percent {
+    background: var(--red-50);
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    padding:.2rem .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .suggestedproduct__percent span {
+    color: var(--white);
+    font-family: var(--iran);
+    display: block;
+  }
+  .suggestedproduct__time {
+    width: 9rem;
+    font-family: var(--iran);
+    font-size: 1.2rem;
+    color: #828282;
+  }
+  .timer {
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+  }
+  .suggestedproduct__time-gold {
+    color: var(--gold);
+    margin-left: 0.2rem;
+  }

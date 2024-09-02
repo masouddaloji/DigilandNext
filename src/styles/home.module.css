@@ -1,0 +1,100 @@
+.headerSlider{
+    width: 100%;
+    height: auto;
+  }
+  .headerSliderLoading{
+    width: 100%;
+    height: 45rem;
+  }
+  .widget {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+  }
+  .instantOffer__wrapper{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--border-box);
+    box-shadow: var(--box-shadow);
+    background: var(--white);
+  }
+  /* del {
+    color: transparent;
+    position: relative;
+  }
+  del::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 1.2rem;
+    background-color: var(--red-50);
+    width: 100%;
+    height: 0.15rem;
+    transform: rotate(-14deg);
+  } */
+  
+  .linkBox__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  
+  .amazinOffer {
+    width: 100%;
+    background:var(--blue);
+    border-radius: var(--border-box);
+    padding: 0 0.7rem;
+  }
+  .amazinOffer--skeleton{
+    background: var(--skeleton);
+  
+  }
+  .amazinOffer__imgBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .amazinOffer__img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .bannerBox,.bannerBoxImg,.newProduct {
+    width: 100%;
+    height: auto;
+  }
+  
+  
+  /* 
+  ==================
+  animation
+  =================== 
+  */
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(90deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  /* 
+  ==================
+  responsive
+  =================== 
+  */
+  
+  @media (max-width: 576px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: none;
+    }
+  }
+  
