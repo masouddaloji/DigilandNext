@@ -3,12 +3,13 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import ProductPageInfo from "@/components/templates/publicPages/ProductPageInfo/ProductPageInfo";
-import { GetProductById } from "@/utils/utils";
+import ProductByIdSection from "@/components/templates/publicPages/ProductByIdSection/ProductByIdSection";
+import { GetProductById } from "@/services/service";
+import styles from "@/styles/Product.module.css";
 export default async function Product({
   params,
 }: {
-  params: { productId: string },
+  params: { productId: string };
 }) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -17,7 +18,11 @@ export default async function Product({
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProductPageInfo id={params.productId} />
+      <div className={styles.product}>
+        <div className="container">
+          <ProductByIdSection id={params.productId} />
+        </div>
+      </div>
     </HydrationBoundary>
   );
 }

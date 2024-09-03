@@ -7,10 +7,15 @@
   /* overflow: hidden; */
   position: relative;
 }
-.slider-larg-img-box{
+.slider-larg-img-box {
   position: relative;
 }
-
+.productGallery__magnifier_image {
+  width: 14rem;
+  height: 14rem;
+  border: 2px solid var(--gray-50);
+  border-radius: 50%;
+}
 .product__largeImage,
 .product__smallImage {
   display: block;

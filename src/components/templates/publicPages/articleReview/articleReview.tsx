@@ -1,7 +1,7 @@
 import { BsChatDots } from "react-icons/bs";
 import styles from "./articleReview.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { GetAriclesReview } from "@/utils/utils";
+import { GetAriclesReview } from "@/services/service";
 import Link from "next/link";
 import { ReviewsProps } from "@/types/types";
 

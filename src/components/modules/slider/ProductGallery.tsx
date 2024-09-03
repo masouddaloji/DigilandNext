@@ -1,6 +1,6 @@
 "use client";
-import { MouseEventHandler, useCallback, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { MouseEvent, TouchEvent, useState } from "react";
+import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Thumbs, Zoom } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -10,36 +10,32 @@ import styles from "./ProductGallery.module.css";
 import Image from "next/image";
 
 const ProductGallery = ({ array = [] }: { array: URL[] | undefined }) => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>();
   const swiperModules = [Zoom, Navigation, Thumbs, Autoplay];
   const [isShowMagnifier, setIsShowMagnifier] = useState(false);
-  const [magnifierSrc, setMagnifierSrc] = useState(null);
-  const [[x, y], setXY] = useState([0, 0]);
-  const [[imgWidth, imgHeight], setImgSize] = useState([0, 0]);
+  const [magnifierSrc, setMagnifierSrc] = useState<string | null>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseEnter = useCallback((e) => {
-    const element = e.currentTarget;
-    const { width, height } = element.getBoundingClientRect();
-    setImgSize([width, height]);
-    setMagnifierSrc(e?.target?.src);
+  const handleMouseEnter = (src: string) => {
     setIsShowMagnifier(true);
-  }, []);
+    setMagnifierSrc(`http://localhost:8000${src}`);
+    console.log(src);
+    console.log("isShowMagnifier=>", isShowMagnifier);
+  };
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     setIsShowMagnifier(false);
-  }, []);
+  };
 
-  const handleMouseMove = useCallback((e: MouseEventHandler<HTMLImageElement>) => {
-    const element = e.currentTarget;
-    const { top, left } = element.getBoundingClientRect();
-    const x = e.touches
-      ? e.touches[0].clientX - left - window.scrollX
-      : e.pageX - left - window.scrollX;
-    const y = e.touches
-      ? e.touches[0].clientY - top - window.scrollY
-      : e.pageY - top - window.scrollY;
-    setXY([x, y]);
-  }, []);
+  const handleMouseMove = (e:any) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setPosition({ x, y });
+    setCursorPosition({ x: e.pageX - left, y: e.pageY - top });
+  };
 
   return (
     <div className="productGallery">
@@ -55,39 +51,40 @@ const ProductGallery = ({ array = [] }: { array: URL[] | undefined }) => {
       >
         {array?.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="slider-larg-img-box">
+            <div
+              className={styles["slider-larg-img-box"]}
+              onTouchStart={() => handleMouseEnter(item.toString())}
+              onMouseEnter={() => handleMouseEnter(item.toString())}
+              onTouchEnd={handleMouseLeave}
+              onMouseLeave={handleMouseLeave}
+              onTouchMove={handleMouseMove}
+              onMouseMove={handleMouseMove}
+            >
               <Image
                 width={600}
                 height={600}
                 src={`http://localhost:8000${item}`}
                 alt="product image"
                 className={styles.product__largeImage}
-                onTouchStart={handleMouseEnter}
-                onMouseEnter={handleMouseEnter}
-                onTouchEnd={handleMouseLeave}
-                onMouseLeave={handleMouseLeave}
-                onTouchMove={handleMouseMove}
-                onMouseMove={handleMouseMove}
               />
-              <div
-                style={{
-                  display: `${isShowMagnifier ? "" : "none"}`,
-                  position: "absolute",
-                  top: `${y - 60}px`,
-                  left: `${x - 60}px`,
-                  width: "120px",
-                  height: "120px",
-                  pointerEvents: "none",
-                  border: " 2px solid var(--gray-50)",
-                  backgroundImage: `url(${magnifierSrc})`,
-                  backgroundSize: `${imgWidth * 2}px ${imgHeight * 2}px`,
-                  backgroundPositionX: `${-x * 2 + 60}px`,
-                  backgroundPositionY: `${-y * 2 + 60}px`,
-                  backgroundRepeat: "no-repeat",
-                  borderRadius: "50%",
-                  // transition:"0.1s"
-                }}
-              ></div>
+              {isShowMagnifier && (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: `${cursorPosition.x - 70}px`,
+                    top: `${cursorPosition.y - 70}px`,
+                    pointerEvents: "none",
+                  }}
+                >
+                  <div
+                    className={styles.productGallery__magnifier_image}
+                    style={{
+                      backgroundImage: `url(${magnifierSrc})`,
+                      backgroundPosition: `${position.x}% ${position.y}%`,
+                    }}
+                  ></div>
+                </div>
+              )}
             </div>
           </SwiperSlide>
         ))}

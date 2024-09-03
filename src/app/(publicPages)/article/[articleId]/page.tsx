@@ -3,9 +3,9 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { GetAricleById } from "@/utils/utils";
+import { GetAricleById } from "@/services/service";
 import ArticleSection from "@/components/templates/publicPages/ArticleSection/ArticleSection";
-
+import styles from "@/styles/Article.module.css";
 const Article = async ({
   params,
 }: {
@@ -20,7 +20,11 @@ const Article = async ({
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ArticleSection id={params.articleId} />
+      <section className={styles.article}>
+        <div className="container">
+          <ArticleSection id={params.articleId} />
+        </div>
+      </section>
     </HydrationBoundary>
   );
 };

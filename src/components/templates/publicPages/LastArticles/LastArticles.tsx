@@ -1,7 +1,7 @@
 import { ArticlesProps } from "@/types/types";
 import styles from "./LastArticles.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { GetAricles } from "@/utils/utils";
+import { GetAricles } from "@/services/service";
 import Link from "next/link";
 import Image from "next/image";
 
