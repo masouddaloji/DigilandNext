@@ -198,8 +198,8 @@ export default function IndexPage() {
         <div className="col-12">
           <SectionHeader
             title="دانش نامـه"
-            link="/"
-            btnLink="/"
+            link="/articles"
+            btnLink="/articles"
             bg="var(--main-backgroundColor)"
             icon={<GrRss className="sectionHeader__icon" />}
             isLoading={isLoading}

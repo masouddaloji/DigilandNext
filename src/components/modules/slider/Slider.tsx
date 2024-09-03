@@ -1,25 +1,12 @@
-"use client";
-//packages
+"use client"
+import styles from "./Slider.module.css"
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-//swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-//components
-// import SuggestedProductBox from "../SuggestedProductBox/SuggestedProductBox";
-// import CompanyProduct from "../CompanyProduct/CompanyProduct";
-// import ArticleBox from "../ArticleBox/ArticleBox";
-// import ProductCart from "../ProductCart/ProductCart";
-// import BannerBox from "../BannerBox/BannerBox";
-// import ServiceBox from "../../components/ServiceBox/ServiceBox";
-// import InstantOffer from "../InstantOffer/InstantOffer";
-
-// styles
-import "./Slider.css";
 import FooterSlider from "@/components/templates/publicPages/Footer/FooterSlider";
 import { SliderProps } from "@/types/types";
-import { nanoid } from "nanoid";
 import CompanyProduct from "@/components/modules/CompanyProduct/CompanyProduct";
 import ProductCart from "@/components/modules/ProductCart/ProductCart";
 import BannerBox from "@/components/templates/publicPages/BannerBox/BannerBox";
@@ -128,7 +115,7 @@ function Slider({
           : {}
       }
       modules={[Autoplay, Pagination, Navigation]}
-      className="customSwiper"
+      className={styles.customSwiper}
     >
       {isSuccess &&
         array?.map((item, index) => {

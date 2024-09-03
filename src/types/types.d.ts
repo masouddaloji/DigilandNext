@@ -101,16 +101,16 @@ export type ProductsProps = {
   _id: string;
   title: string;
   segment: string;
-  image: string;
-  gallery: string[];
+  image: url;
+  gallery: url[];
   offPrice: number;
   price: number;
   rating: number;
   quantity: number;
-  colors: string[];
+  colors: persianColorProps[];
   category: string;
-  shortDescription: string;
-  fullDescription: string;
+  shortDescription: ReactDOM;
+  fullDescription: ReactDOM;
   reviews: string[];
   brand: string;
   createdAt: Date;
@@ -183,11 +183,25 @@ export type Reviews = {
   _id: string;
   title: string;
   rating: number;
-  description: ReactDOM ;
+  description: ReactDOM;
   articleId: string;
   userId: {
     _id: string;
     email: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+};
+export type ProductReview = {
+  _id: string;
+  rating: number;
+  description: string;
+  productId: string;
+  userId: {
+    _id: string;
+    email: string;
+    name: string;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -205,9 +219,60 @@ export type Article = {
   updatedAt: Date;
   __v: number;
 };
+
 export type ArticlesProps = {
   message: string;
   data: Article[];
+  currentPage: number;
+  nextPage: number;
+  previoousPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  lastPage: number;
+  total: number;
+};
+export type ArticleIdProps = {
+  data: Article;
+  related: Article[];
+  currentPage: number;
+  nextPage: number;
+  previoousPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  lastPage: number;
+  total: number;
+};
+export type persianColorProps =
+  | "قرمز"
+  | "مشکی"
+  | "طلائی"
+  | "آبی"
+  | "سبز"
+  | "سفید"
+  | "صورتی";
+export type ProductByIdProps = {
+  data: {
+    _id: string;
+    title: string;
+    segment: string;
+    image: url;
+    gallery: url[];
+    offPrice: number;
+    price: number;
+    rating: number;
+    quantity: number;
+    colors: persianColorProps[];
+    category: string;
+    shortDescription: ReactDOM;
+    fullDescription: ReactDOM;
+    reviews: ProductReview[]|[];
+    brand: string;
+    createdAt: Date;
+    updatedAt: Date;
+    __v: number;
+    subCategory: string;
+  };
+  related: ProductsProps[];
   currentPage: number;
   nextPage: number;
   previoousPage: number;

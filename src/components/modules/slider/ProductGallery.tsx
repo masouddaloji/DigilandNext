@@ -1,22 +1,17 @@
-import { useCallback, useState } from "react";
-//packages
+"use client";
+import { MouseEventHandler, useCallback, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Thumbs, Zoom } from "swiper";
-
-//  Swiper styles
+import { Autoplay, Navigation, Thumbs, Zoom } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-//utils
-import { addImageFallback } from "../../utils/utils";
-//styles
-import "./ProductGallery.css";
+import styles from "./ProductGallery.module.css";
+import Image from "next/image";
 
-const ProductGallery = ({ array = [] }) => {
+const ProductGallery = ({ array = [] }: { array: URL[] | undefined }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const swiperModules = [Zoom, Navigation, Thumbs, Autoplay];
-  // state for magnifier
   const [isShowMagnifier, setIsShowMagnifier] = useState(false);
   const [magnifierSrc, setMagnifierSrc] = useState(null);
   const [[x, y], setXY] = useState([0, 0]);
@@ -28,13 +23,13 @@ const ProductGallery = ({ array = [] }) => {
     setImgSize([width, height]);
     setMagnifierSrc(e?.target?.src);
     setIsShowMagnifier(true);
-  },[]);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     setIsShowMagnifier(false);
-  },[]);
+  }, []);
 
-  const handleMouseMove = useCallback((e) => {
+  const handleMouseMove = useCallback((e: MouseEventHandler<HTMLImageElement>) => {
     const element = e.currentTarget;
     const { top, left } = element.getBoundingClientRect();
     const x = e.touches
@@ -44,7 +39,7 @@ const ProductGallery = ({ array = [] }) => {
       ? e.touches[0].clientY - top - window.scrollY
       : e.pageY - top - window.scrollY;
     setXY([x, y]);
-  },[]);
+  }, []);
 
   return (
     <div className="productGallery">
@@ -55,17 +50,18 @@ const ProductGallery = ({ array = [] }) => {
         zoom={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={swiperModules}
-        className="largSwiper"
+        className={styles.largSwiper}
         style={{ width: "100%" }}
       >
         {array?.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="slider-larg-img-box">
-              <img
-                src={`https://digiland-app.iran.liara.run${item}`}
-                onError={addImageFallback}
+              <Image
+                width={600}
+                height={600}
+                src={`http://localhost:8000${item}`}
                 alt="product image"
-                className="product__largeImage"
+                className={styles.product__largeImage}
                 onTouchStart={handleMouseEnter}
                 onMouseEnter={handleMouseEnter}
                 onTouchEnd={handleMouseLeave}
@@ -97,7 +93,7 @@ const ProductGallery = ({ array = [] }) => {
         ))}
       </Swiper>
 
-      <div className="product__smallImagesWrapper">
+      <div className={styles.product__smallImagesWrapper}>
         <Swiper
           onSwiper={setThumbsSwiper}
           dir="rtl"
@@ -114,11 +110,12 @@ const ProductGallery = ({ array = [] }) => {
         >
           {array?.map((item, index) => (
             <SwiperSlide key={index}>
-              <img
-                src={`https://digiland-app.iran.liara.run${item}`}
+              <Image
+                src={`http://localhost:8000${item}`}
                 alt="product image"
-                className="product__smallImage"
-                onError={addImageFallback}
+                className={styles.product__smallImage}
+                width={70}
+                height={70}
               />
             </SwiperSlide>
           ))}

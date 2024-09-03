@@ -479,19 +479,19 @@ export const ratingOptions = [
   { value: 5, text: "عالی" },
 ];
 export const colorOptions = [
-  {id:nanoid(),value: "قرمز", img: "/images/optionColor/red.png" },
-  {id:nanoid(),value: "مشکی", img: "/images/optionColor/black.png" },
-  {id:nanoid(),value: "طلائی", img: "/images/optionColor/yellow.png" },
-  {id:nanoid(),value: "آبی", img: "/images/optionColor/blue.png" },
-  {id:nanoid(),value: "سبز", img: "/images/optionColor/green.png" },
-  {id:nanoid(),value: "سفید", img: "/images/optionColor/white.png" },
-  {id:nanoid(),value: "صورتی", img: "/images/optionColor/pink.png" },
+  {id:"colorOptions_red",value: "قرمز", img: "/images/optionColor/red.png" },
+  {id:"colorOptions_black",value: "مشکی", img: "/images/optionColor/black.png" },
+  {id:"colorOptions_gold",value: "طلائی", img: "/images/optionColor/yellow.png" },
+  {id:"colorOptions_blue",value: "آبی", img: "/images/optionColor/blue.png" },
+  {id:"colorOptions_green",value: "سبز", img: "/images/optionColor/green.png" },
+  {id:"colorOptions_white",value: "سفید", img: "/images/optionColor/white.png" },
+  {id:"colorOptions_pink",value: "صورتی", img: "/images/optionColor/pink.png" },
 ];
 export const allInfosBtn = [
-  { id: nanoid(), titleFa: "توضیحات", titleEn: "description" },
-  { id: nanoid(), titleFa: "مشخصات", titleEn: "specifications" },
-  { id: nanoid(), titleFa: "نظرات کاربران", titleEn: "userComments" },
-  { id: nanoid(), titleFa: " نقد و بررسی", titleEn: "review" },
+  { id: "allInfosBtn_description", titleFa: "توضیحات", titleEn: "description" },
+  { id: "allInfosBtn_specifications", titleFa: "مشخصات", titleEn: "specifications" },
+  { id: "allInfosBtn_userComments", titleFa: "نظرات کاربران", titleEn: "userComments" },
+  { id: "allInfosBtn_review", titleFa: " نقد و بررسی", titleEn: "review" },
 ];
 export const footerSliderItems = [
   {
