@@ -215,7 +215,7 @@ const ProductByIdSection = ({ id }: { id: string }) => {
                         key={`color_${color}`}
                         style={selectColorStyle(color)}
                         className={` ${styles.product__color} ${
-                          selectColor === color ? "colorSelected" : null
+                          selectColor === color ? " " : null
                         } `}
                       >
                         {selectColor === color && (

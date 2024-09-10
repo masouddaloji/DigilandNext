@@ -265,7 +265,7 @@ export type ProductByIdProps = {
     category: string;
     shortDescription: ReactDOM;
     fullDescription: ReactDOM;
-    reviews: ProductReview[]|[];
+    reviews: ProductReview[] | [];
     brand: string;
     createdAt: Date;
     updatedAt: Date;
@@ -280,4 +280,38 @@ export type ProductByIdProps = {
   hasPreviousPage: boolean;
   lastPage: number;
   total: number;
+};
+export type ProductsCategoryProp = {
+  message: string;
+  data: ProductsProps[] | [];
+  currentPage: number;
+  nextPage: number;
+  previoousPage: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  lastPage: number;
+  total: number;
+};
+export type SidebarFilterItemProps = {
+  header: string;
+  highLight?: string;
+  isPrice: boolean;
+  children: ReactNode;
+};
+export type menuProps = {
+  id: string;
+  title: string;
+  link: string;
+  shortLink: string;
+  img: string;
+  icon: ReactNode;
+  subMenu:
+    | {
+        id: string;
+        title: string;
+        link: string;
+        shortLink: string;
+        img: string;
+      }[]
+    | [];
 };

@@ -120,7 +120,7 @@ function Slider({
       {isSuccess &&
         array?.map((item, index) => {
           return (
-            <SwiperSlide key={item.id ?? index}>
+            <SwiperSlide className={slide==="serviceBox"?"flex-grow-1":""} key={item.id ?? index}>
               {selectSlide(item)}
             </SwiperSlide>
           );

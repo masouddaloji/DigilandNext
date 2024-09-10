@@ -10,7 +10,6 @@ const LastArticles = () => {
     queryKey: ["aricles"],
     queryFn: GetAricles,
   });
-  console.log("articles =>",articles);
   
   return (
     <section className={`${styles["last-articles"]} max__blog`}>

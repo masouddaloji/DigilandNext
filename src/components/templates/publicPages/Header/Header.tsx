@@ -13,7 +13,7 @@ import Search from "@/components/templates/publicPages/Search/Search";
 import { useEffect, useRef, useState } from "react";
 import SidebarCart from "@/components/templates/publicPages/SidebarCart/SidebarCart";
 import Navbar from "@/components/templates/publicPages/Navbar/Navbar";
-import OutsideClickHandler from "@/utils/OutsideClickHandler";
+import {OutsideClickHandler} from "@/utils/utils";
 import { menus } from "@/utils/Constants";
 
 export default function Header() {

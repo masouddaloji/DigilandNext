@@ -5,7 +5,7 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import styles from "./SidebarCart.module.css";
 import Link from "next/link";
 import SidebarCartItem from "@/components/templates/publicPages/SidebarCartItem/SidebarCartItem";
-import OutsideClickHandler from "@/utils/OutsideClickHandler";
+import {OutsideClickHandler} from "@/utils/utils";
 import { SidebarCartProps } from "@/types/types";
 import { persianTexts } from "@/utils/persianTexts";
 

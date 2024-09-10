@@ -1,0 +1,20 @@
+.categoryFilter {
+  width: 100%;
+  user-select: none;
+}
+.categoryFilter__lists {
+padding: 1rem;
+overflow: hidden;
+}
+.categoryFilter__item {
+    line-height: 3rem;
+    display: block;
+    color: var(--black-50);
+    font-size: 1.2rem;
+    width: 100%;
+    position: relative;
+    transition: all .3s;
+
+}
+
+
