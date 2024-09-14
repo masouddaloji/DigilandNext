@@ -1,4 +1,10 @@
 import { Dispatch, ReactNode, Ref, SetStateAction } from "react";
+import {
+  FieldError,
+  FieldValues,
+  UseFormGetValues,
+  UseFormRegister,
+} from "react-hook-form";
 export type FormControlProps = {
   controler:
     | "file"
@@ -315,3 +321,27 @@ export type menuProps = {
       }[]
     | [];
 };
+export type InputProps = {
+  controler: string;
+  name: string
+  icon: ReactNode;
+  label: string;
+  type: string;
+  register: UseFormRegister<FieldValues>;
+  error: FieldError<FieldValues>;
+  type: "textarea" | "input";
+};
+export type loginHandler = {
+  email: string;
+  pwd: string;
+};
+export type registerHandler = {
+  registerEmail: string;
+  registerPassword: string;
+  registerConfirmPassword: string;
+};
+export interface CustomJwtPayload extends JwtPayload {
+  email: string;
+  role: string;
+  userId: string;
+}

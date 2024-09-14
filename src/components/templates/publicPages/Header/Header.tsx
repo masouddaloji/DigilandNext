@@ -13,16 +13,16 @@ import Search from "@/components/templates/publicPages/Search/Search";
 import { useEffect, useRef, useState } from "react";
 import SidebarCart from "@/components/templates/publicPages/SidebarCart/SidebarCart";
 import Navbar from "@/components/templates/publicPages/Navbar/Navbar";
-import {OutsideClickHandler} from "@/utils/utils";
+import { OutsideClickHandler, ScreenSize } from "@/utils/utils";
 import { menus } from "@/utils/Constants";
+import { userInfo } from "@/utils/auth";
 
-export default function Header() {
-  let userRole = "admin";
+export default  function Header() {
+const { userName, userRole } = userInfo();
+  console.log("userInfo=>",userInfo())
   const mobileMoskRef = useRef<HTMLDivElement>(null);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const [deviceWidth, setDeviceWidth] = useState<{ width: number }>({
-    width: window.innerWidth,
-  });
+  const deviceWidth = ScreenSize();
   const [isShowSideBarCart, setIsShowSideBarCart] = useState<boolean>(false);
 
   OutsideClickHandler({
@@ -32,16 +32,9 @@ export default function Header() {
 
   const logoutHandler = async () => {};
 
-  const resizaHandler = () => {
-    setDeviceWidth({ width: window.innerWidth });
-  };
-  useEffect(() => {
-    window.addEventListener("resize", resizaHandler);
-    return () => window.removeEventListener("resize", resizaHandler);
-  }, []);
   return (
     <>
-      {deviceWidth.width >= 992 ? (
+      {deviceWidth && deviceWidth >= 992 ? (
         <header className="header">
           {/* start sidebar basket  */}
           <SidebarCart
@@ -49,7 +42,6 @@ export default function Header() {
             setIsShowSideBarCart={setIsShowSideBarCart}
           />
           {/* end sidebar basket  */}
-
           <div className="container">
             <div className="row">
               <div className="col-lg-3">
@@ -68,10 +60,9 @@ export default function Header() {
               </div>
               <div className="col-lg-3">
                 <div className={styles.header__leftBox}>
-                  {/* {!userName ? ( */}
-                  {!false ? (
+                  {!userName ? (
                     <Link className={styles.header__authUser} href="/login">
-                      <div className="header__authUser-box">
+                      <div className={styles["header__authUser-box"]}>
                         <IoPersonOutline className="fullIcon" />
                       </div>
                       <span className={styles["header__authUser-text"]}>
@@ -79,12 +70,12 @@ export default function Header() {
                       </span>
                     </Link>
                   ) : (
-                    <div className="header__userInfo">
+                    <div className={styles.header__userInfo}>
                       <div className={styles["header__authUser-box"]}>
                         <RiUserSettingsLine className="fullIcon" />
                       </div>
                       <span className={styles.header__userName}>
-                        {/* {data?.name ?? data?.email?.split("@")[0]} */}
+                        {userName}
                       </span>
                       <ul className={styles.header__userOptions}>
                         {userRole === "superAdmin" || userRole === "admin" ? (
@@ -190,7 +181,6 @@ export default function Header() {
                 </li>
               </ul>
             </div>
-
             <div className="container">
               <div className="row">
                 <div className="col-8 col-md-6">
@@ -203,6 +193,8 @@ export default function Header() {
                     </div>
                     <Link href="/" className={styles.mobileHeader__logoBox}>
                       <Image
+                        width={200}
+                        height={40}
                         src="/images/logo-mobile.png"
                         alt="logo site for mobile"
                         className={styles.mobileHeader__logoImg}
@@ -212,9 +204,11 @@ export default function Header() {
                 </div>
                 <div className="col-4 col-md-6">
                   <div className="mobileHeader__leftBox">
-                    {/* {!userName ? ( */}
-                    {!true ? (
-                      <Link className={styles.mobileHeader__authUser} href="/login">
+                    {!userName ? (
+                      <Link
+                        className={styles.mobileHeader__authUser}
+                        href="/login"
+                      >
                         <div className={styles["header__authUser-box"]}>
                           <IoPersonOutline className="fullIcon" />
                         </div>

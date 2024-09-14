@@ -2,6 +2,11 @@
 const nextConfig = {
   images: {
     domains:["localhost"]
+
+  },
+};
+
+export default nextConfig;
     // remotePatterns: [
     //   {
     //     protocol: "http",
@@ -10,7 +15,3 @@ const nextConfig = {
     //     pathname: "**",
     //   },
     // ],
-  },
-};
-
-export default nextConfig;

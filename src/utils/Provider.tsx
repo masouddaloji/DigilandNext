@@ -6,6 +6,8 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -30,9 +32,23 @@ export default function Provider({ children }: ComponentsProps) {
   const queryClient = getQueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false}/>
-        {children}
-
-        </QueryClientProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <>
+      {children}
+      <ToastContainer
+        className="custom-toast-container"
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        />
+        </>
+    </QueryClientProvider>
   );
 }

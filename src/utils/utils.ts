@@ -1,25 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { OutsideClickHandlerProps } from "@/types/types";
-export const setFilterHandler = ({name,value}:{name:string,value:string}) => {
-    
-    const handler=()=>{
-       
-    }
-    return handler
-};
 export const ScreenSize = () => {
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState<number | null>(window.innerWidth??null);
   const resizeHandler = () => {
-    setWidth(window.innerWidth);
-    console.log("window.innerWidth=>", window.innerWidth);
+    const innerWidth = window.innerWidth;
+    setWidth(innerWidth);
   };
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);
-    return () => window.removeEventListener("resize", resizeHandler);
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
   }, []);
+
   return width;
 };
 
@@ -35,8 +31,6 @@ export const OutsideClickHandler = ({
   useEffect(() => {
     document.addEventListener("click", outsideClick);
     return () => document.removeEventListener("click", outsideClick);
-  }, [])
-  return true
+  }, []);
+  return true;
 };
-
-

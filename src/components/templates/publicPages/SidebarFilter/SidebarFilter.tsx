@@ -1,4 +1,5 @@
 "use client";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { MouseEvent, useRef, useState } from "react";
 import PriceSlider from "../PriceSlider/PriceSlider";
 import SidebarFilterItem from "./SidebarFilterItem";
@@ -9,11 +10,10 @@ import CategoryFilter from "@/components/templates/publicPages/CategoryFilter/Ca
 import Brands from "@/components/templates/publicPages/Brands/Brands";
 import ColorFilter from "@/components/templates/publicPages/ColorFilter/ColorFilter";
 
-const SidebarFilter = ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const SidebarFilter = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
   const [isShowFilterOptions, setIsShowFilterOptions] = useState<boolean>(true);
   const maskRef = useRef<HTMLDivElement>(null);
   const width = ScreenSize();
@@ -23,8 +23,18 @@ const SidebarFilter = ({
       setIsShowFilterOptions(false);
     }
   };
+  const restFilterHandler = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("category");
+    params.delete("subCategory");
+    params.delete("color");
+    params.delete("price");
+    params.delete("sort");
+    params.delete("brand");
+    params.delete("search");
+    replace(`${pathname}?${params.toString()}`);
+  };
 
-  const restFilterHandler = () => {};
   return (
     <>
       {/* mask for filterMobile */}
@@ -50,9 +60,9 @@ const SidebarFilter = ({
           <div className={styles.filter__header}>
             <h4 className={styles.filter__headerTitle}>
               فیلترها
-              {searchParams?.price ||
-              searchParams?.brand ||
-              searchParams?.color ? (
+              {searchParams.get("price") ||
+              searchParams.get("brand") ||
+              searchParams.get("color") ? (
                 <p
                   className={styles.filter__deleteFilters}
                   onClick={restFilterHandler}
@@ -72,7 +82,7 @@ const SidebarFilter = ({
 
           <SidebarFilterItem
             header=" محدوده قیمت :"
-            highLight={(searchParams?.price as string) ?? ""}
+            highLight={(searchParams.get("price") as string) ?? ""}
             isPrice={true}
           >
             <PriceSlider />
@@ -85,14 +95,18 @@ const SidebarFilter = ({
           <SidebarFilterItem
             isPrice={false}
             header=" برند ها :"
-            highLight={(searchParams.brand as string) ?? ""}
+            highLight={(searchParams.get("brand") as string) ?? ""}
           >
             <Brands />
           </SidebarFilterItem>
 
-           <SidebarFilterItem header=" رنگ ها :" highLight={(searchParams.color as string) ?? ""} isPrice={false}>
-            <ColorFilter  />
-          </SidebarFilterItem> 
+          <SidebarFilterItem
+            header=" رنگ ها :"
+            highLight={(searchParams.get("color") as string) ?? ""}
+            isPrice={false}
+          >
+            <ColorFilter />
+          </SidebarFilterItem>
         </div>
       </div>
     </>

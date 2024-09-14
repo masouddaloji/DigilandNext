@@ -29,13 +29,13 @@ export const RegisterSchema = Yup.object().shape({
     .required(persianTexts.error.register.input.confirmPassword.required),
 });
 export const LoginSchema = Yup.object().shape({
-  loginUserName: Yup.string()
+  email: Yup.string()
     .required(persianTexts.error.register.input.userName.required)
     .matches(userNamePattern, persianTexts.error.register.input.userName.regex)
     .min(8, persianTexts.error.register.input.userName.min)
     .max(35, persianTexts.error.register.input.userName.max),
 
-  loginPassword: Yup.string()
+  pwd: Yup.string()
     .required(persianTexts.error.register.input.password.required)
     .matches(passwordPattern, persianTexts.error.register.input.password.regex)
     .min(8, persianTexts.error.register.input.password.min)

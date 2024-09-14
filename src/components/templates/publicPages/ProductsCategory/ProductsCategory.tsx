@@ -10,6 +10,8 @@ import { GetProducts } from "@/services/service";
 import FilterProducts from "../FilterProducts/FilterProducts";
 import { ProductsCategoryProp } from "@/types/types";
 import SidebarFilter from "@/components/templates/publicPages/SidebarFilter/SidebarFilter";
+import ProductCartSkeleton from "@/components/modules/ProductCart/ProductCartSkeleton";
+import { useCallback } from "react";
 const ProductsCategory = ({
   searchParams,
 }: {
@@ -37,18 +39,31 @@ const ProductsCategory = ({
         },
       }),
   });
+  const SkeletonProductCategory = useCallback(() => {
+    const arraySkeleton = Array(12)
+      .fill(0)
+      .map((_, index) => (
+        <div
+          className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
+          key={"category_filter_product_cart" + index}
+        >
+          <ProductCartSkeleton />
+        </div>
+      ));
+    return arraySkeleton;
+  }, []);
 
   return (
     <>
       <div className="row">
         <div className="col-12">{/* <Breadcrumb /> */}</div>
         <ShowCategory
-          categoryName={searchParams?.category as string ?? ""}
-          subCategory={searchParams?.subCategory as string ?? ""}
+          categoryName={(searchParams?.category as string) ?? ""}
+          subCategory={(searchParams?.subCategory as string) ?? ""}
         />
       </div>
       <div className="row">
-        <SidebarFilter searchParams={searchParams} />
+        <SidebarFilter />
 
         <div className="col-12 col-lg-8 col-xl-9">
           <div className={styles.pageTitle}>
@@ -66,43 +81,36 @@ const ProductsCategory = ({
           {/* start show products */}
 
           <div className="row ">
-            {isSuccess &&
-              (products?.data?.length > 0 ? (
-                products.data.map((product) => (
-                  <div
-                    className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
-                    key={product._id}
-                  >
-                    <ProductCart
-                      {...product}
-                      isLoading={isLoading}
-                      isSuccess={isSuccess}
-                    />
-                  </div>
-                ))
-              ) : (
-                <Error
-                  title={persianTexts.productsCategory.noProducts}
-                  type="warning"
-                />
-              ))}
-            {/* {isLoading &&
-              Array(pageInfo.limit)
-                .fill(0)
-                .map((product) => (
-                  <div
-                    className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
-                    key={nanoid}
-                  >
-                    <ProductCart isLoading={isLoading} isSuccess={isSuccess} />
-                  </div>
-                ))} */}
+            {isLoading&&<SkeletonProductCategory />}
             {isError && (
               <Error
                 title={persianTexts.productsCategory.noResponse}
                 type="warning"
               />
             )}
+              {isSuccess&&
+                products?.data?.length > 0 ? (
+                  products.data.map((product) => (
+                    <div
+                      className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3"
+                      key={product._id}
+                    >
+                      <ProductCart
+                        {...product}
+                        isLoading={isLoading}
+                        isSuccess={isSuccess}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <Error
+                    title={persianTexts.productsCategory.noProducts}
+                    type="warning"
+                  />
+                )}
+
+
+          
           </div>
 
           {/* end show products */}

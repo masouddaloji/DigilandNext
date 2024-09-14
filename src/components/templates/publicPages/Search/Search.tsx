@@ -1,34 +1,33 @@
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { TfiSearch } from "react-icons/tfi";
-import { VscClose } from "react-icons/vsc";
 import styles from "./Search.module.css";
-import Link from "next/link";
-import Image from "next/image";
+
 
 const Search = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
   const [searchValue, setSearchValue] = useState("");
-  // const debounceQuery = useDebounce(searchValue, 500);
-  const [showResult, setShowResult] = useState(false);
-  const [searchParams, setSearchParams] = useState({
-    page: 1,
-    limit: 5,
-    category: "",
-    subCategory: "",
-    color: "",
-    price: "",
-    sort: "",
-    brand: "",
-    // search: debounceQuery,
-    search: "",
-  });
-
-  const searchHandler = () => setShowResult(true);
-
+  const searchHandler = () => {
+    const params=new URLSearchParams(searchParams)
+    params.delete("category")
+    params.delete("subCategory")
+    params.delete("color")
+    params.delete("price")
+    params.delete("sort")
+    params.delete("brand")
+    params.set("search",searchValue)
+    replace(`${pathname}?${params.toString()}`)
+  }
+  
   return (
     <div className={styles.serach__wrapper}>
       <form className={styles.searchBox} onSubmit={(e) => e.preventDefault()}>
-        <TfiSearch className={styles.searchBox__iconSearch} onClick={searchHandler} />
-
+        <TfiSearch
+          className={styles.searchBox__iconSearch}
+          onClick={searchHandler}
+        />
         <input
           type="text"
           className={styles.searchBox__input}
@@ -36,7 +35,7 @@ const Search = () => {
           value={searchValue}
           onChange={(e) => {
             setSearchValue(e.target.value);
-            setShowResult(true);
+            // setShowResult(true);
           }}
           onKeyUp={(e) => {
             if (e.key === "Enter") {
@@ -45,7 +44,7 @@ const Search = () => {
           }}
         />
 
-        {showResult && (
+        {/* {showResult && (
           <VscClose
             className={styles["search-box__btn--close"]}
             onClick={() => {
@@ -53,17 +52,17 @@ const Search = () => {
               setSearchValue("");
             }}
           />
-        )}
+        )} */}
 
         {/* {showResult && debounceQuery && ( */}
-        {showResult && (
+        {/* {showResult && (
           <div className={styles["search-box__result-wrapper"]}>
-            {/* {isLoading && <div className={styles["search-box__loader"]}></div>} */}
-            {/* {isSuccess && (
+            {isLoading && <div className={styles["search-box__loader"]}></div>}
+            {isSuccess && (
               <>
-                {result?.data?.length ? (
+                {products?.data?.length ? (
                   <>
-                    {result.data.map((item) => (
+                    {products.data.map((item) => (
                       <div
                         className={styles["search-box__result-box"]}
                         key={item._id}
@@ -71,7 +70,7 @@ const Search = () => {
                       >
                         <div className={styles["search-box__result-banner"]}>
                           <Image
-                            src={`https://digiland-app.iran.liara.run${item.image}`}
+                            src={`http://localhost:8000${item.image}`}
                             alt="Photo search result"
                             className={styles["search-box__result-img"]}
                             width={40}
@@ -93,7 +92,7 @@ const Search = () => {
                       onClick={() => setShowResult(false)}
                     >
                       <Link
-                        href={`/products/search/${searchParams.search}`}
+                        href={`/products?search=${searchValue}`}
                         className={styles["search-box__result-seeAll"]}
                       >
                         مشاهده همه نتایج
@@ -101,21 +100,20 @@ const Search = () => {
                     </div>
                   </>
                 ) : (
-                    <div className={styles["search-box__error-box"]}>
+                  <div className={styles["search-box__error-box"]}>
                     <span>نتیجه ای یافت نشد</span>
                   </div>
                 )}
               </>
-            )} */}
+            )}
 
-            {/* {isError && ( */}
-            {false && (
+            {isError && (
               <div className={styles["search-box__error-box"]}>
                 <span>خطا در دریافت داده ها</span>
               </div>
             )}
           </div>
-        )}
+        )} */}
       </form>
     </div>
   );
