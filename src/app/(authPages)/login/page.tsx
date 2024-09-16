@@ -3,7 +3,6 @@ import React from "react";
 import styles from "@/styles/auth.module.css";
 import { persianTexts } from "@/utils/persianTexts";
 import { LoginClient } from "@/components/templates/authPage/LoginClient";
-import { loginHandler } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 

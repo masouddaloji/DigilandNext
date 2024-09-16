@@ -1,36 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { OutsideClickHandlerProps } from "@/types/types";
-export const ScreenSize = () => {
-  const [width, setWidth] = useState<number | null>(window.innerWidth??null);
-  const resizeHandler = () => {
-    const innerWidth = window.innerWidth;
-    setWidth(innerWidth);
-  };
+import { useEffect, useRef } from "react";
+
+export const useOutsideClick = (callback: () => void) => {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
-    return () => {
-      window.removeEventListener("resize", resizeHandler);
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback();
+      }
     };
-  }, []);
 
-  return width;
-};
+    document.addEventListener("mouseup", handleClickOutside);
+    document.addEventListener("touchend", handleClickOutside);
 
-export const OutsideClickHandler = ({
-  ref,
-  setStateHandler,
-}: OutsideClickHandlerProps) => {
-  const outsideClick = (e: MouseEvent) => {
-    if (ref?.current === e.target) {
-      setStateHandler(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("click", outsideClick);
-    return () => document.removeEventListener("click", outsideClick);
-  }, []);
-  return true;
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutside);
+      document.removeEventListener("touchend", handleClickOutside);
+    };
+  }, [callback]);
+
+  return ref;
 };

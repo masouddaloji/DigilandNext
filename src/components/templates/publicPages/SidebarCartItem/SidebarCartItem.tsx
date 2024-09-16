@@ -26,7 +26,7 @@ const SidebarCartItem = (props) => {
       <div className={styles.sideBarCartItem__imgBox}>
         <Link href={`/product/${_id}`} className={styles.sideBarCartItem__Link}>
           <Image
-            src={`https://digiland-app.iran.liara.run${image}`}
+            src={`http://localhost:8000${image}`}
             alt="mini image products"
             className={styles.sideBarCartItem__img}
             width={55}

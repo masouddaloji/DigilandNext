@@ -1,12 +1,12 @@
 "use server";
 import { cookies } from "next/headers";
-import instance from "@/services/api";
+import axiosInstance from "@/services/api";
 import { CustomJwtPayload, loginHandler, registerHandler } from "@/types/types";
 import { jwtDecode } from "jwt-decode";
 export const loginUserHandler = async (data: loginHandler) => {
   const cookie = cookies();
   try {
-    const res = await instance.post("/auth/login", data);
+    const res = await axiosInstance.post("/auth/login", data);
     if (res.data.accessToken) {
       cookie.set("token", res.data.accessToken, {
         path: "/",
@@ -24,20 +24,20 @@ export const registerUserHandler = async (formData: registerHandler) => {
       email: formData.registerEmail,
       pwd: formData.registerPassword,
     };
-    const response = await instance.post("/auth/register", userData);
+    const response = await axiosInstance.post("/auth/register", userData);
     return response.status;
   } catch (error: any) {
     return error.response.status;
   }
 };
-export const userInfo = () => {
+export const userInfo = async () => {
   const cookie = cookies();
-  const token = cookie.get("token")?.value;
+  const token =cookie.get("token")?.value;
   let userName = "";
-  let userRole = null;
-  let userID = null;
+  let userRole: string | null = null;
+  let userID: string | null = null;  
   if (token) {
-    const decode = jwtDecode(token);
+    const decode = await jwtDecode(token);
     const { email, role, userId } = decode as CustomJwtPayload;
     userName = email.split("@")[0];
     userRole = role;
@@ -45,4 +45,4 @@ export const userInfo = () => {
   }
   const userDetails = { userName, userRole, userID };
   return userDetails;
-};
+}

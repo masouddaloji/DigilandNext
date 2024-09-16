@@ -46,11 +46,12 @@ export const LoginClient = () => {
       router.replace("/");
     } else if (response === 401) {
       toast.error(persianTexts.login.loginNotMatch);
+      reset();
     } else {
       toast.error(persianTexts.login.loginError);
+      reset();
     }
 
-    // reset();
   });
 
   return (

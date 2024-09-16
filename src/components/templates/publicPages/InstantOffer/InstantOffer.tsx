@@ -1,14 +1,13 @@
-
 import Image from "next/image";
 import styles from "./instantOffer.module.css";
 import Tooltip from "@/components/modules/Tooltip/Tooltip";
 import Link from "next/link";
 import { InstantOfferProps } from "@/types/types";
 
-const InstantOffer = (props:InstantOfferProps) => {
+const InstantOffer = (props: InstantOfferProps) => {
   const { _id, title, image, offPrice, price, rating, isLoading, isSuccess } =
     props;
-    
+
   return (
     <>
       {isSuccess ? (
@@ -18,19 +17,20 @@ const InstantOffer = (props:InstantOfferProps) => {
           </div>
           <div className={styles.instantOffer__imgBox}>
             <Image
-            width={900} height={700}
+              width={500}
+              height={400}
               src={`http://localhost:8000${image}`}
               alt="instantOffer image"
               className={styles.instantOffer__img}
             />
           </div>
-          <Tooltip isSmall={false} title= {title}>
-          <Link
-            className={styles.instantOffer__ProductName}
-            href={`product/${_id}`}
-          >
-            {title}
-          </Link>
+          <Tooltip isSmall={false} title={title}>
+            <Link
+              className={styles.instantOffer__ProductName}
+              href={`product/${_id}`}
+            >
+              {title}
+            </Link>
           </Tooltip>
           <div className="priceBox ss02">
             <del>

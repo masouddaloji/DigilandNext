@@ -22,7 +22,7 @@ function BannerBox(props:BannerBoxProps) {
       ) : isSuccess ? (
         <div className={styles.widget__imageBox}>
           <Link className={styles.widget__link} href={link}>
-            <Image width={950} height={400} src={cover} alt="banner img" className={styles.widget__img} />
+            <Image width={950} height={410} src={cover} alt="banner img" className={styles.widget__img} />
           </Link>
         </div>
       ) : null}

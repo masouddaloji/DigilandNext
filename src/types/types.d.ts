@@ -21,13 +21,15 @@ export type FormControlProps = {
   icon: ReactNode;
 };
 export type ComponentsProps = { children: ReactNode };
-export type OutsideClickHandlerProps = {
+export type useOutsideClickProps = {
   ref: Ref;
   setStateHandler: Dispatch<SetStateAction<boolean>>;
 };
 export type SidebarCartProps = {
   isShowSideBarCart: boolean;
   setIsShowSideBarCart: Dispatch<SetStateAction<boolean>>;
+  userName: string | null;
+  // userRole: string | null;
 };
 export type MobileMenuItemProps = {
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -323,7 +325,7 @@ export type menuProps = {
 };
 export type InputProps = {
   controler: string;
-  name: string
+  name: string;
   icon: ReactNode;
   label: string;
   type: string;
@@ -345,3 +347,13 @@ export interface CustomJwtPayload extends JwtPayload {
   role: string;
   userId: string;
 }
+export type basketCart = {
+  productId: ProductsProps
+  cartQuantity:number
+  _id: string
+};
+export type Basket = {
+  totalAmount: number;
+  totalQTY: number;
+  cartItems: basketCart[]|[];
+};

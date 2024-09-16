@@ -1,19 +1,17 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { sortedProductsItems } from "@/utils/Constants";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { BsSliders } from "react-icons/bs";
 import { FaSortAmountDown } from "react-icons/fa";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import styles from "./FilterProducts.module.css";
 
-const FilterProducts = () => {
+const FilterProducts = ({ setIsShowFilterOptions }:{ setIsShowFilterOptions:Dispatch<SetStateAction<boolean>> }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const [isShowSortList, setIsShowSortList] = useState<boolean>(false);
-  const [isShowFilterOptions, setIsShowFilterOptions] =
-    useState<boolean>(false);
-  const [sortStatusPersian, setSortStatusPersian] = useState<string>("");
+  const [selectSort, setSelectSort] = useState<string>(searchParams.get("sort")??"");
   const sortProductsHandler = (sort: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("sort", sort);
@@ -29,7 +27,7 @@ const FilterProducts = () => {
             onClick={() => setIsShowSortList(!isShowSortList)}
           >
             <span className={styles.productsCategory__title}>
-              {sortStatusPersian ? sortStatusPersian : "مرتب سازی بر اساس"}
+              {selectSort.trim().length ? selectSort : "مرتب سازی براساس"}
             </span>
             {!isShowSortList ? (
               <HiChevronDown className={styles.productsCategory__icon} />
@@ -51,8 +49,9 @@ const FilterProducts = () => {
                 key={item.id}
                 className={styles.productsCategory__sorteItem}
                 onClick={() => {
-                  sortProductsHandler(item.sortedBy)
-                  setIsShowSortList(false)
+                  sortProductsHandler(item.sortedBy);
+                  setIsShowSortList(false);
+                  setSelectSort(item.title);
                 }}
               >
                 {item.title}
@@ -62,7 +61,7 @@ const FilterProducts = () => {
         </div>
         <span
           className={styles.filterMobile__btn}
-          onClick={() => setIsShowFilterOptions(!isShowFilterOptions)}
+          onClick={() => setIsShowFilterOptions((prev) => !prev)}
         >
           <BsSliders className={styles.filter__icon} />
           فیلتر

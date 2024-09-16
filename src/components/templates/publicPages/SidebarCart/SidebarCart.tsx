@@ -5,22 +5,34 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import styles from "./SidebarCart.module.css";
 import Link from "next/link";
 import SidebarCartItem from "@/components/templates/publicPages/SidebarCartItem/SidebarCartItem";
-import {OutsideClickHandler} from "@/utils/utils";
-import { SidebarCartProps } from "@/types/types";
+import { useOutsideClick } from "@/utils/utils";
+import { Basket, SidebarCartProps } from "@/types/types";
 import { persianTexts } from "@/utils/persianTexts";
+import { getBasket } from "@/services/service";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }:SidebarCartProps) => {
-  const maskRef = useRef<HTMLDivElement>(null);
-  const sideBarCartRef = useRef<HTMLDivElement>(null);
+const SidebarCart = ({
+  isShowSideBarCart,
+  setIsShowSideBarCart,
+  userName,
+}: SidebarCartProps) => {
+  const queryClient = useQueryClient();
+  const sideBarCartRef = useOutsideClick(() => setIsShowSideBarCart(false));
+  const { data: baskets, isSuccess } = useQuery<Basket>({
+    queryKey: ["basket"],
+    queryFn: async () => getBasket(),
+  });
+  if (!userName) {
+    queryClient.cancelQueries({ queryKey: ["basket"] });
+  }
+  console.log("baskets=>", baskets);
 
-  OutsideClickHandler({ ref: maskRef, setStateHandler: setIsShowSideBarCart });
   return (
     <>
       <div
         className={`${styles.mask} ${
           isShowSideBarCart ? styles["mask--show"] : ""
         }`}
-        ref={maskRef}
       ></div>
       <div
         className={`${styles.sideBarCart} ${
@@ -32,8 +44,7 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }:SidebarCartProp
           <div>
             <span>سبد خرید</span>
             <span className={`${styles.sideBarCart__headerCount} ss02`}>
-              {/* {userName ? baskets?.totalQTY ?? 0 : 0} */}
-              {false ? 0 ?? 0 : 0}
+              {userName ? baskets?.totalQTY ?? 0 : 0}
             </span>
           </div>
           <IoMdClose
@@ -41,16 +52,14 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }:SidebarCartProp
             onClick={() => setIsShowSideBarCart(false)}
           />
         </div>
-        {/* {userName ? ( */}
-        {false ? (
+        {userName ? (
           <>
-           {/* {baskets?.cartItems?.length > 0 ? (
+            {isSuccess && baskets?.cartItems?.length > 0 ? (
               <ul className={styles.sideBarCart__Lists}>
                 {baskets.cartItems.map((item) => (
                   <SidebarCartItem {...item} key={item._id} />
                 ))}
               </ul>
-           
             ) : (
               <div className={styles.emptyBasket}>
                 <IoBagHandleOutline className={styles.emptyBasket__icon} />
@@ -58,14 +67,13 @@ const SidebarCart = ({ isShowSideBarCart, setIsShowSideBarCart }:SidebarCartProp
                   {persianTexts.basket.emptyBasket}
                 </Link>
               </div>
-            )} */}
+            )}
 
             <div className={styles.sideBarCart__totalPriceAndLinks}>
               <div className="flex ss02">
                 <span>جمع كل سبد خريد : </span>
                 <bdi className="currentPrice">
-                  {/* {baskets?.totalAmount?.toLocaleString()} */}
-                  {0?.toLocaleString()}
+                  {baskets?.totalAmount?.toLocaleString()}
                   <span className="toman">تومان</span>
                 </bdi>
               </div>

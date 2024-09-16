@@ -115,7 +115,7 @@ function Slider({
           : {}
       }
       modules={[Autoplay, Pagination, Navigation]}
-      className={styles.customSwiper}
+      className={"customSwiper"}
     >
       {isSuccess &&
         array?.map((item, index) => {

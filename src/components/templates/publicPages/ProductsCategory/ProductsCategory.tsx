@@ -11,7 +11,7 @@ import FilterProducts from "../FilterProducts/FilterProducts";
 import { ProductsCategoryProp } from "@/types/types";
 import SidebarFilter from "@/components/templates/publicPages/SidebarFilter/SidebarFilter";
 import ProductCartSkeleton from "@/components/modules/ProductCart/ProductCartSkeleton";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 const ProductsCategory = ({
   searchParams,
 }: {
@@ -39,6 +39,7 @@ const ProductsCategory = ({
         },
       }),
   });
+  const [isShowFilterOptions, setIsShowFilterOptions] = useState<boolean>(false);
   const SkeletonProductCategory = useCallback(() => {
     const arraySkeleton = Array(12)
       .fill(0)
@@ -63,7 +64,7 @@ const ProductsCategory = ({
         />
       </div>
       <div className="row">
-        <SidebarFilter />
+        <SidebarFilter isShowFilterOptions={isShowFilterOptions} setIsShowFilterOptions={setIsShowFilterOptions}/>
 
         <div className="col-12 col-lg-8 col-xl-9">
           <div className={styles.pageTitle}>
@@ -76,7 +77,7 @@ const ProductsCategory = ({
             </div>
           </div>
           {/* start sorted products */}
-          <FilterProducts />
+          <FilterProducts  setIsShowFilterOptions={setIsShowFilterOptions}/>
           {/* end sorted products */}
           {/* start show products */}
 

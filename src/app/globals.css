@@ -950,7 +950,9 @@ a {
   } */
 }
 /*end responsive user table */
-
+.swiper,.swiper .swiper-slide {
+  min-height:100%;
+}
 @media (min-width: 768px) {
   .auth {
     padding: 2rem 3rem;

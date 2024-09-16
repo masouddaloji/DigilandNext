@@ -22,8 +22,7 @@ export default function IndexPage() {
   return (
     <>
       {/* header slider */}
-      <div className={styles.headerSlider}>
-        <div className="row" style={{height:"100%"}}>
+        <div className="row" >
           <div className="col-12 col-lg-9">
             <div className={styles.widget}>
               {/* banner */}
@@ -32,7 +31,7 @@ export default function IndexPage() {
                 isSuccess={isSuccess}
                 spaceBetween={45}
                 loop={true}
-                autoplay={true}
+                // autoplay={true}
                 navigation={true}
                 array={banners}
                 slide="BannerBox"
@@ -55,7 +54,6 @@ export default function IndexPage() {
             </div>
           </div>
         </div>
-      </div>
       {/* services icon */}
       <div className="row">
         <div className="col">

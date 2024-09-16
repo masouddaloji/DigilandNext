@@ -1,7 +1,6 @@
 .header {
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: none;
   background: var(--white);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -245,7 +244,7 @@
   background: var(--white);
   z-index: 15;
   transition: all 0.3s;
-  z-index: 200;
+  z-index: 999;
 }
 .mobileMenu.mobileMenu--show {
   right: 0;
@@ -343,3 +342,13 @@
     right: -36rem;
   }
 }
+@media (min-width: 992px) {
+  .mobileHeader{
+    display: none;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+  }
+}
+
