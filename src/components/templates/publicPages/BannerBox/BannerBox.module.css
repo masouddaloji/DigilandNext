@@ -10,4 +10,7 @@
   .widget__img {
     object-fit: cover;
     border-radius: var(--border-box);
+    display: block;
+    width: 100%;
+    min-height: 100%;
   }
